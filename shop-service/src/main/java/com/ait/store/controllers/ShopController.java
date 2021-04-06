@@ -37,14 +37,26 @@ public class ShopController {
 
     @GetMapping("/shops")
     public List<Shop> getShops(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country) {
-        if (name.isPresent() && country.isPresent()) {
-            return shopRepository.findByNameAndCountry(name.get(), country.get());
-        } else if (name.isPresent()) {
-            return shopRepository.findByName(name.get());
-        } else if (country.isPresent()) {
-            return shopRepository.findByCountry(country.get());
-        }
+
         return shopRepository.findAll();
+    }
+
+    @GetMapping(value = "/shops", params = {"name", "country"})
+    public List<Shop> getShopsByNameAndCountry(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country) {
+
+            return shopRepository.findByNameAndCountry(name.get(), country.get());
+
+    }
+
+    @GetMapping(value = "/shops", params = "name")
+    public List<Shop> getShopsByName(@RequestParam("name") Optional<String> name) {
+
+        return shopRepository.findByName(name.get());
+    }
+    @GetMapping(value = "/shops", params = "country")
+    public List<Shop> getShopsByCountry(@RequestParam("country") Optional<String> country) {
+
+        return shopRepository.findByCountry(country.get());
     }
 
     @GetMapping("/shops/{shopId}/products")

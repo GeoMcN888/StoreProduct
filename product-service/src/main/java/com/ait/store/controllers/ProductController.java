@@ -35,15 +35,23 @@ public class ProductController {
         return ResponseEntity.accepted().body(product);
     }
 
+    @GetMapping(value = "/products", params = {"name", "company"})
+    public List<Product> getProductsByNameAndCompany(@RequestParam("name") Optional<String> name, @RequestParam("company")Optional<String> company) {
+        return productRepository.findByNameAndCompany(name.get(), company.get());
+    }
+
+    @GetMapping(value = "/products", params = "name")
+    public List<Product> getProductsByName(@RequestParam("name") Optional<String> name) {
+        return productRepository.findByName(name.get());
+    }
+
+    @GetMapping(value = "/products", params = "company")
+    public List<Product> getProductsByCompany(@RequestParam("company")Optional<String> company) {
+        return productRepository.findByCompany(company.get());
+    }
+
     @GetMapping("/products")
-    public List<Product> getProducts(@RequestParam("name") Optional<String> name, @RequestParam("company")Optional<String> company) {
-        if (name.isPresent() && company.isPresent()) {
-            return productRepository.findByNameAndCompany(name.get(), company.get());
-        } else if (name.isPresent()) {
-            return productRepository.findByName(name.get());
-        } else if (company.isPresent()) {
-            return productRepository.findByCompany(company.get());
-        }
+    public List<Product> getProducts() {
         return productRepository.findAll();
     }
 

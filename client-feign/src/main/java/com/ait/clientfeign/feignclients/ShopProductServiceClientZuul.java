@@ -10,17 +10,26 @@ import java.util.Optional;
 
 @FeignClient("zuul-api-gateway")
 public interface ShopProductServiceClientZuul {
-    @GetMapping("product-service/product/{productId}")
+    @GetMapping("product-service/products/{productId}")
     Product getProductById(@PathVariable(value = "productId") long productId);
 
-    @DeleteMapping("product-service/product/{productId}")
+    @DeleteMapping("product-service/products/{productId}")
     void deleteProductById(@PathVariable(value = "productId") long productId);
 
-    @PostMapping("product-service/product/{productId}")
+    @PostMapping("product-service/products/{productId}")
     Product addProduct(@RequestBody Product product) ;
 
-    @GetMapping("product-service/product")
-    List<Product> getProducts(@RequestParam("name") Optional<String> name, @RequestParam("company")Optional<String> company);
+    @GetMapping("product-service/products")
+    List<Product> getProducts();
+
+    @GetMapping(value = "product-service/products", params = "company")
+    List<Product> getProductsByCompany(@RequestParam("company")Optional<String> company);
+
+    @GetMapping(value = "product-service/products", params = "name")
+    List<Product> getProductsByName(@RequestParam("name") Optional<String> name);
+
+    @GetMapping(value = "product-service/products", params = {"name", "company"})
+    List<Product> getProductsByNameAndCompany(@RequestParam("name") Optional<String> name, @RequestParam("company")Optional<String> company);
 
     @GetMapping("product-service/products/{productId}/shops")
     List<Shop> getShopsByProductId(@PathVariable long productId);
@@ -35,7 +44,16 @@ public interface ShopProductServiceClientZuul {
     Shop addShop(@RequestBody Shop shop) ;
 
     @GetMapping("shop-service/shops")
-    List<Shop> getShops(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country);
+    List<Shop> getShops();
+
+    @GetMapping(value = "shop-service/shops", params = "name")
+    List<Shop> getShopsByName(@RequestParam("name") Optional<String> name);
+
+    @GetMapping(value = "shop-service/shops", params = "country")
+    public List<Shop> getShopsByCountry(@RequestParam("country")Optional<String> country);
+
+    @GetMapping(value = "shop-service/shops", params = {"name", "country"})
+    public List<Shop> getShopsByNameAndCountry(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country);
 
     @GetMapping("shop-service//shops/{shopId}/products")
     List<Product> getProductsByShopId(@PathVariable long shopId);
