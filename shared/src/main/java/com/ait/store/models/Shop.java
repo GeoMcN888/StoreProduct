@@ -13,6 +13,7 @@ import java.util.List;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="shop_id")
     private long shopId;
     @Column
     private String name;
@@ -20,9 +21,9 @@ public class Shop {
     private String address;
     @Column
     private String country;
-    @Column
+    @Column(name="phone_number")
     private long phoneNumber;
-    @Column
+    @Column(name="year_founded", columnDefinition = "DATE")
     private LocalDate yearFounded;
     @Column
     private String picture;

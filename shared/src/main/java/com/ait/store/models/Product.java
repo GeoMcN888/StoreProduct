@@ -15,6 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="product_id")
     private long productId;
 
     @Column
@@ -26,7 +27,7 @@ public class Product {
     @Column
     private double price;
 
-    @Column
+    @Column(name="expiry_date", columnDefinition = "DATE")
     private LocalDate expiryDate;
 
     @Column
@@ -35,7 +36,7 @@ public class Product {
     @Column
     private String description;
 
-    @Column
+    @Column(name="country_made")
     private String countryMade;
 
 

@@ -1,0 +1,2 @@
+insert into products (product_id, name, company, price, expiry_date, type, description, country_made) values (1, 'Kinder Egg', 'Nestle', 2.55, '1994-1-8', 'Chocolate Bar', 'Great quality choclate', 'Germany');
+insert into products (product_id, name, company, price, expiry_date, type, description, country_made) values (2, 'Coco Pops', 'Nestle', 4.55, '1994-1-8', 'Chocolate Cereal', 'Great tasting Cereal', 'Germany');

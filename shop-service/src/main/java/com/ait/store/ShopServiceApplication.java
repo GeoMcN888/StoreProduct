@@ -18,21 +18,8 @@ import java.util.List;
 public class ShopServiceApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ShopServiceApplication.class, args);
-		ShopRepository shopRepository = configurableApplicationContext.getBean(ShopRepository.class);
-		ProductRepository productRepository = configurableApplicationContext.getBean(ProductRepository.class);
+		SpringApplication.run(ShopServiceApplication.class, args);
 
-		Shop shop1 = new Shop(1, "Supervalu", "Knocklyon, Dublin", "Ireland", 012342354, LocalDate.of(1994, 1, 8), "dewre");
-
-		List<Shop> shops = Arrays.asList(shop1);
-
-		Product product1 = new Product(1, "Kinder Egg", "Nestle", 2.55, LocalDate.of(1994, 1, 8), "Chocolate Bar", "Great quality choclate", "Germany");
-		List<Product> products = Arrays.asList(product1);
-
-
-		shop1.shopProducts(product1);
-
-		shopRepository.save(shop1);
 
 	}
 }
