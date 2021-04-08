@@ -1,10 +1,12 @@
 package com.ait.store.controllers;
 
 
+import com.ait.store.Configuration;
 import com.ait.store.models.Product;
 import com.ait.store.models.Shop;
 import com.ait.store.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,11 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    Configuration config;
+
+
 
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProductById(@PathVariable long productId) throws Exception {
@@ -58,5 +65,10 @@ public class ProductController {
     @GetMapping("/products/{productId}/stores")
     public List<Shop> getShopsByProductId(@PathVariable long productId){
         return productRepository.findShopsByProductId(productId);
+    }
+
+    @GetMapping("/products/config")
+    public String test(){
+        return config.getName();
     }
 }

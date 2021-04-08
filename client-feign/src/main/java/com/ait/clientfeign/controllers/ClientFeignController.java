@@ -1,9 +1,10 @@
 package com.ait.clientfeign.controllers;
 
 import com.ait.clientfeign.feignclients.ShopProductServiceClientZuul;
-import com.ait.store.models.Product;
-import com.ait.store.models.Shop;
+import com.ait.clientfeign.models.Product;
+import com.ait.clientfeign.models.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,9 @@ import java.util.Optional;
 @RestController
 public class ClientFeignController
 {
-   
+   @Value("${client.test}")
+   private String test;
+
 
     @Autowired
     ShopProductServiceClientZuul shopProductClientZuul;
@@ -112,5 +115,9 @@ public class ClientFeignController
         return shopProductClientZuul.getProductsByShopId(shopId);
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return test;
+    }
 
 }

@@ -1,6 +1,7 @@
-package com.ait.store.models;
+package com.ait.clientfeign.models;
 
 
+import com.ait.clientfeign.models.Shop;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -43,9 +44,6 @@ public class Product {
     @JsonIgnore
     @ManyToMany(mappedBy = "shopProducts")
     private List<Shop> productShops = new ArrayList<>();
-
-    public Product(String name, String countryMade) {
-    }
 
     public void productShops(Shop store){
         productShops.add(store);

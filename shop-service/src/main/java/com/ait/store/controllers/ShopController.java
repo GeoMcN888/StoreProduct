@@ -1,5 +1,6 @@
 package com.ait.store.controllers;
 
+import com.ait.store.Configuration;
 import com.ait.store.models.Product;
 import com.ait.store.models.Shop;
 import com.ait.store.repositories.ShopRepository;
@@ -15,6 +16,9 @@ public class ShopController {
 
     @Autowired
     ShopRepository shopRepository;
+
+    @Autowired
+    Configuration config;
 
     @GetMapping("/shops/{shopId}")
     public ResponseEntity<Shop> getShopById(@PathVariable long shopId) throws Exception {
@@ -62,5 +66,10 @@ public class ShopController {
     @GetMapping("/shops/{shopId}/products")
     public List<Product> getProductsByShopId(@PathVariable long shopId){
         return shopRepository.findProductsByShopId(shopId);
+    }
+
+    @GetMapping("/config")
+    public String config(){
+        return config.getName();
     }
 }

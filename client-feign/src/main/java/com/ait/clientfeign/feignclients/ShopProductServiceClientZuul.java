@@ -1,7 +1,7 @@
 package com.ait.clientfeign.feignclients;
 
-import com.ait.store.models.Product;
-import com.ait.store.models.Shop;
+import com.ait.clientfeign.models.Product;
+import com.ait.clientfeign.models.Shop;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @FeignClient("zuul-api-gateway")
 public interface ShopProductServiceClientZuul {
+
+
     @GetMapping("product-service/products/{productId}")
     Product getProductById(@PathVariable(value = "productId") long productId);
 
@@ -55,7 +57,10 @@ public interface ShopProductServiceClientZuul {
     @GetMapping(value = "shop-service/shops", params = {"name", "country"})
     public List<Shop> getShopsByNameAndCountry(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country);
 
-    @GetMapping("shop-service//shops/{shopId}/products")
+    @GetMapping("shop-service/shops/{shopId}/products")
     List<Product> getProductsByShopId(@PathVariable long shopId);
+
+    @GetMapping("/test")
+    public String test();
 
 }
