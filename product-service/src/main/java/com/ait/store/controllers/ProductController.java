@@ -24,9 +24,9 @@ public class ProductController {
 
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable long productId) throws Exception {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new Exception("Product not found"));
-        return ResponseEntity.ok(product);
+    public Product getProductById(@PathVariable long productId) throws Exception {
+        Product product = productRepository.findById(productId).get();
+        return product;
     }
 
     @DeleteMapping("/products/{productId}")

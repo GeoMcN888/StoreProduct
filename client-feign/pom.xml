@@ -45,18 +45,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-        <dependency>
-            <groupId>com.ait.store</groupId>
-            <artifactId>product-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ait.store</groupId>
-            <artifactId>shop-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
 		<dependency>
 			<groupId>com.ait.store</groupId>
 			<artifactId>shared</artifactId>

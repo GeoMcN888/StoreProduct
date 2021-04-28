@@ -39,6 +39,9 @@ public class Product {
     @Column(name="country_made")
     private String countryMade;
 
+    private long productValue;
+
+
 
     @JsonIgnore
     @ManyToMany(mappedBy = "shopProducts")
@@ -54,7 +57,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long productId, String name, String company, double price, LocalDate expiryDate, String type, String description, String countryMade) {
+    public Product(long productId, String name, String company, double price, LocalDate expiryDate, String type, String description, String countryMade, long productValue) {
         this.productId = productId;
         this.name = name;
         this.company = company;
@@ -63,6 +66,15 @@ public class Product {
         this.type = type;
         this.description = description;
         this.countryMade = countryMade;
+        this.productValue = productValue;
+    }
+
+    public long getProductValue() {
+        return productValue;
+    }
+
+    public void setProductValue(long productValue) {
+        this.productValue = productValue;
     }
 
     public long getProductId() {

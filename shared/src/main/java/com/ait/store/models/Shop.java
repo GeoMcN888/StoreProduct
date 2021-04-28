@@ -28,6 +28,15 @@ public class Shop {
     @Column
     private String picture;
 
+    @Transient long productValue;
+
+    public long getProductValue() {
+        return productValue;
+    }
+
+    public void setProductValue(long productValue) {
+        this.productValue = productValue;
+    }
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
@@ -44,7 +53,7 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(long shopId, String name, String address, String country, long phoneNumber, LocalDate yearFounded, String picture) {
+    public Shop(long shopId, String name, String address, String country, long phoneNumber, LocalDate yearFounded, String picture, long productValue) {
         this.shopId = shopId;
         this.name = name;
         this.address = address;
@@ -52,6 +61,7 @@ public class Shop {
         this.phoneNumber = phoneNumber;
         this.yearFounded = yearFounded;
         this.picture = picture;
+        this.productValue = productValue;
     }
 
     public long getShopId() {
@@ -108,6 +118,14 @@ public class Shop {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public List<Product> getShopProducts() {
+        return shopProducts;
+    }
+
+    public void setShopProducts(List<Product> shopProducts) {
+        this.shopProducts = shopProducts;
     }
 
     @Override
