@@ -35,5 +35,7 @@ public interface ProductClient {
     @GetMapping("product-service/products/{productId}/shops")
     List<Shop> getShopsByProductId(@PathVariable long productId);
 
+    @GetMapping("product-service/shops/{shopId}/products")
+    List<Product> findProductsByShopId(@PathVariable("shopId") long shopId);
 
 }

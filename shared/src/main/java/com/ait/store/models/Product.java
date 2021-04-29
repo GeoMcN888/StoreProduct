@@ -4,6 +4,7 @@ package com.ait.store.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,17 @@ import java.util.List;
 @Table(name = "products")
 public class Product {
 
+    public enum Type {
+        Sweets, Cereal, Meat, Vegetables, Fruit, Drink, Alcohol, Dairy, Frozen
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="product_id")
     private long productId;
 
     @Column
+    @Size(min=2, message="Name should have at least 2 characters")
     private String name;
 
     @Column
@@ -31,7 +37,8 @@ public class Product {
     private LocalDate expiryDate;
 
     @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column
     private String description;
@@ -40,8 +47,6 @@ public class Product {
     private String countryMade;
 
     private long productValue;
-
-
 
     @JsonIgnore
     @ManyToMany(mappedBy = "shopProducts")
@@ -57,7 +62,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long productId, String name, String company, double price, LocalDate expiryDate, String type, String description, String countryMade, long productValue) {
+    public Product(long productId, String name, String company, double price, LocalDate expiryDate, Type type, String description, String countryMade, long productValue) {
         this.productId = productId;
         this.name = name;
         this.company = company;
@@ -117,11 +122,11 @@ public class Product {
         this.expiryDate = expiryDate;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

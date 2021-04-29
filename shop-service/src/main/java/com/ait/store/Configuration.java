@@ -12,16 +12,6 @@ public class Configuration {
     private String name;
     private String country;
 
-    private String boo;
-
-    public String getBoo() {
-        return boo;
-    }
-
-    public void setBoo(String boo) {
-        this.boo = boo;
-    }
-
     public String getName() {
         return name;
     }

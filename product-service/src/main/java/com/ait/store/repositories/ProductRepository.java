@@ -15,8 +15,12 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
     List<Product> findByNameAndCompany(String name, String company);
     List<Product> findByName(String name);
     List<Product> findByCompany(String company);
+    List<Product> findByType(String type);
 
     @Query("SELECT w from Shop w JOIN w.shopProducts u where u.id = ?1 ")
     List<Shop> findShopsByProductId(@PathVariable("productId") long productId);
+
+    @Query("SELECT w from Product w JOIN w.productShops u where u.id = ?1 ")
+    List<Product> findProductsByShopId(@PathVariable("shopId") long shopId);
 
 }

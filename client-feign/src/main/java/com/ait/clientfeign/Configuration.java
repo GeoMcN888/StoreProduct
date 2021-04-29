@@ -1,16 +1,16 @@
-package com.ait.store;
+package com.ait.clientfeign;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @RefreshScope
-@ConfigurationProperties("product-service")
+@ConfigurationProperties("client-feign")
 @Component
 public class Configuration {
 
     private String name;
-    private String countryMade;
+    private String country;
 
     public String getName() {
         return name;
@@ -20,11 +20,12 @@ public class Configuration {
         this.name = name;
     }
 
-    public String getCountryMade() {
-        return countryMade;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCountryMade(String countryMade) {
-        this.countryMade = countryMade;
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
+

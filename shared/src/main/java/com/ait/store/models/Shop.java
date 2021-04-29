@@ -3,6 +3,7 @@ package com.ait.store.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,32 +12,41 @@ import java.util.List;
 @Entity
 @Table(name = "shops")
 public class Shop {
+
+    public enum Type {
+        grocery, supermarket
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="shop_id")
     private long shopId;
+
     @Column
+    @Size(min=2, message="Name should have at least 2 characters")
     private String name;
+
     @Column
     private String address;
+
     @Column
     private String country;
+
     @Column(name="phone_number")
     private long phoneNumber;
+
     @Column(name="year_founded", columnDefinition = "DATE")
     private LocalDate yearFounded;
+
     @Column
     private String picture;
 
-    @Transient long productValue;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
-    public long getProductValue() {
-        return productValue;
-    }
-
-    public void setProductValue(long productValue) {
-        this.productValue = productValue;
-    }
+    @Transient
+    long productValue;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
@@ -53,7 +63,7 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(long shopId, String name, String address, String country, long phoneNumber, LocalDate yearFounded, String picture, long productValue) {
+    public Shop(long shopId, String name, String address, String country, long phoneNumber, LocalDate yearFounded, String picture, long productValue, Type type) {
         this.shopId = shopId;
         this.name = name;
         this.address = address;
@@ -61,6 +71,23 @@ public class Shop {
         this.phoneNumber = phoneNumber;
         this.yearFounded = yearFounded;
         this.picture = picture;
+        this.productValue = productValue;
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public long getProductValue() {
+        return productValue;
+    }
+
+    public void setProductValue(long productValue) {
         this.productValue = productValue;
     }
 
@@ -139,6 +166,7 @@ public class Shop {
                 ", yearFounded=" + yearFounded +
                 ", picture='" + picture + '\'' +
                 ", shopProducts=" + shopProducts +
+                ", type=" + type +
                 '}';
     }
 }

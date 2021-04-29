@@ -14,8 +14,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     List<Shop> findByNameAndCountry(String name, String country);
     List<Shop> findByName(String name);
     List<Shop> findByCountry(String country);
-
-    @Query("SELECT w from Product w JOIN w.productShops u where u.id = ?1 ")
-    List<Product> findProductsByShopId(@PathVariable("shopId") long shopId);
-
+    List<Shop> findByType(String type);
 }

@@ -1,6 +1,7 @@
 package com.ait.store.controllers;
 
 import com.ait.store.Configuration;
+import com.ait.store.exceptions.ShopNotFoundException;
 import com.ait.store.feignclients.ProductClient;
 import com.ait.store.models.Product;
 import com.ait.store.models.Shop;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +28,17 @@ public class ShopController {
     ProductClient productClient;
 
     @GetMapping("/shops/{shopId}")
-    public Shop getShopById(@PathVariable long shopId) throws Exception {
+    public ResponseEntity<Shop> getShopById(@PathVariable long shopId) throws ShopNotFoundException {
 
         Product product = productClient.getProductById(shopId);
-        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> new Exception("Shop not found"));;
+        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> new ShopNotFoundException("Shop not found"));
         shop.setProductValue(product.getProductValue());
-        return shop;
+        return ResponseEntity.ok(shop);
     }
 
     @DeleteMapping("/shops/{shopId}")
-    public ResponseEntity deleteShopById(@PathVariable long shopId) throws Exception {
-        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> new Exception("Shop not found"));
+    public ResponseEntity deleteShopById(@PathVariable long shopId) throws ShopNotFoundException {
+        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> new ShopNotFoundException("Shop not found"));
         shopRepository.delete(shop);
         return ResponseEntity.noContent().build();
     }
@@ -47,8 +49,15 @@ public class ShopController {
         return ResponseEntity.accepted().body(shop);
     }
 
+    @PutMapping("/shops/{shopId}")
+    public ResponseEntity updateShop(@RequestBody Shop shop,
+                                          @PathVariable("shopId") long shopId) {
+        shopRepository.save(shop);
+        return ResponseEntity.ok("shop saved");
+    }
+
     @GetMapping("/shops")
-    public List<Shop> getShops(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country) {
+    public List<Shop> getShops(@RequestParam("name") Optional<String> name, @RequestParam("country")Optional<String> country){
 
         return shopRepository.findAll();
     }
@@ -65,6 +74,7 @@ public class ShopController {
 
         return shopRepository.findByName(name.get());
     }
+
     @GetMapping(value = "/shops", params = "country")
     public List<Shop> getShopsByCountry(@RequestParam("country") Optional<String> country) {
 
@@ -73,10 +83,12 @@ public class ShopController {
 
     @GetMapping("/shops/{shopId}/products")
     public List<Product> getProductsByShopId(@PathVariable long shopId){
-        return shopRepository.findProductsByShopId(shopId);
+        List<Product> products = productClient.findProductsByShopId(shopId);
+        return products;
     }
 
-    @GetMapping("/config")
+//   Showing Configuration Stage. eg Development.
+    @GetMapping("/shops/config")
     public String config(){
         return config.getName();
     }
