@@ -41,6 +41,7 @@ public class Product {
     private Type type;
 
     @Column
+    @Size(max=100, message="description should have no more than 100 characters")
     private String description;
 
     @Column(name="country_made")

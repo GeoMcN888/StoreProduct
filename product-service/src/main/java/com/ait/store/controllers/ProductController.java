@@ -44,22 +44,6 @@ public class ProductController {
         return ResponseEntity.accepted().body(product);
     }
 
-    /*@PutMapping("products")
-    public ResponseEntity updateProduct(@RequestBody Product product){
-        if(product.getId() != null){
-            productRepository.save(product);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-        else{
-            Product savedProduct = productRepository.save(product);
-        }
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("{id}")
-                .buildAndExpand(product.getId()).toUri();
-        return ResponseEntity.created(location).build();
-    }*/
-
     @GetMapping(value = "/products", params = {"name", "company"})
     public List<Product> getProductsByNameAndCompany(@RequestParam("name") Optional<String> name, @RequestParam("company")Optional<String> company) {
         return productRepository.findByNameAndCompany(name.get(), company.get());

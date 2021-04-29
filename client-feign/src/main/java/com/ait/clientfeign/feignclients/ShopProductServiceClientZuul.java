@@ -39,4 +39,7 @@ public interface ShopProductServiceClientZuul {
 
     @PutMapping("/shops/{shopId}")
     ResponseEntity updateShop(@RequestBody Shop shop, @PathVariable("shopId") long shopId);
+
+    @GetMapping("/shops/config")
+    String config();
 }

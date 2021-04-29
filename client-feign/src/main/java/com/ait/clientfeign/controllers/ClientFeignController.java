@@ -30,11 +30,11 @@ public class ClientFeignController {
         return shopProductClientZuul.addShop(shop);
     }
 
-    @PutMapping("/shops/{shopId}")
+    /*@PutMapping("/shops/{shopId}")
     public ResponseEntity updateShopFromServiceZuul(@RequestBody Shop shop,
                                      @PathVariable("shopId") long shopId){
         return shopProductClientZuul.updateShop(shop, shopId);
-    }
+    }*/
     @GetMapping(value = "client-feign-zuul/shops", params = {"name", "country"})
     public List<Shop> getShopsByNameAndCountryFromShopServiceZuul(@RequestParam("name") String name, @RequestParam("country") String country) {
         return shopProductClientZuul.getShopsByNameAndCountry(name, country);
@@ -65,8 +65,8 @@ public class ClientFeignController {
         return shopProductClientZuul.getProductsByShopId(shopId);
     }
 
-    @GetMapping("/config")
+   /* @GetMapping("client-feign-zuul/shops/config")
     public String config() {
-        return config.getName();
-    }
+        return shopProductClientZuul.config();
+    }*/
 }
